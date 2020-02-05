@@ -48,17 +48,23 @@ class ImageListLabels(LabelledDataset):
     '''
     def __init__(self, img_list_path, root=None):
         self.root = root
-        if osp.splitext(img_list_path)[1] == '.txt':
+        ext = osp.splitext(img_list_path)[1]
+        if ext == '.txt':
             tmp = [e.strip() for e in open(img_list_path)]
             self.imgs = [e.split(' ')[0] for e in tmp]
             self.labels = [e.split(' ')[1] for e in tmp]
-        elif osp.splitext(img_list_path)[1] == '.json':
+        elif ext == '.json':
             d = json.load(open(img_list_path))
             self.imgs = []
             self.labels = []
             for i, l in d.items():
                 self.imgs.append(i)
                 self.labels.append(l)
+        elif ext == '.pkl':
+            with open(img_list_path, 'rb') as f:
+                d = pickle.load(f)
+            self.imgs = [e['imfile'] for e in d]
+            self.labels = [e['class'] for e in d]
         self.find_classes()
 
         self.nimg = len(self.imgs)

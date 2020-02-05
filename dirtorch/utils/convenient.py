@@ -1,7 +1,35 @@
 import os
+import numpy as np
+import pickle
+import joblib
 
 ################################################
 # file stuff
+
+def load(path):
+    """Load features
+    """
+    if not os.path.exists(path):
+        raise Exception("{} does not exist".format(path))
+    ext = os.path.splitext(path)[-1]
+    assert ext in ['.npy', '.pkl', '.jbl'], f"Unexpected file type {ext}"
+    if ext == '.pkl':
+        with open(path, 'rb') as f:
+            return pickle.load(f)
+    return {'.npy': np, '.jbl': joblib}[ext].load(path)
+
+
+def save(data, path):
+    ext = os.path.splitext(path)[-1]
+    assert ext in ['.npy', '.pkl', '.jbl'], f"Unexpected file type {ext}"
+    if ext == '.npy':
+        np.save(path, data)
+    elif ext == '.jbl':
+        joblib.dump(data, path)
+    elif ext == '.pkl':
+        with open(path, 'wb') as f:
+            pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+
 
 def mkdir(d):
     try: os.makedirs(d)

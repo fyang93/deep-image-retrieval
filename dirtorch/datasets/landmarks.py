@@ -5,12 +5,14 @@ DB_ROOT = os.environ['DB_ROOT']
 
 class Landmarks_clean(ImageListLabels):
     def __init__(self):
-        ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/annotations/annotation_clean_train.txt'),
+        # ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/annotations/annotation_clean_train.txt'),
+        ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/anno_clean_train.pkl'),
                                  os.path.join(DB_ROOT, 'landmarks/'))
 
 class Landmarks_clean_val(ImageListLabels):
     def __init__(self):
-        ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/annotations/annotation_clean_val.txt'),
+        # ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/annotations/annotation_clean_val.txt'),
+        ImageListLabels.__init__(self, os.path.join(DB_ROOT, 'landmarks/anno_clean_val.pkl'),
                                  os.path.join(DB_ROOT, 'landmarks/'))
 
 class Landmarks_lite(ImageListLabels):

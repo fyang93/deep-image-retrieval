@@ -187,13 +187,14 @@ class ResNet(nn.Module):
         print("Loading ImageNet pretrained weights for %s" % pretrain_code)
         assert self.model_name in model_urls, "Unknown model '%s'" % self.model_name
 
-        model_dir='dirtorch/data/models/classification/'
-        import os, stat # give group permission
-        try: os.makedirs(model_dir)
-        except OSError: pass
+        # model_dir='dirtorch/data/models/classification/'
+        # import os, stat # give group permission
+        # try: os.makedirs(model_dir)
+        # except OSError: pass
 
         import torch.utils.model_zoo as model_zoo
-        state_dict = model_zoo.load_url(model_urls[self.model_name], model_dir=model_dir)
+        # state_dict = model_zoo.load_url(model_urls[self.model_name], model_dir=model_dir)
+        state_dict = model_zoo.load_url(model_urls[self.model_name])
 
         from . import load_pretrained_weights
         load_pretrained_weights(self, state_dict)
